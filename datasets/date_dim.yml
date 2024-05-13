@@ -1,6 +1,6 @@
-unique_name: date_dim
+unique_name: date_dimension
 object_type: dataset
-label: date_dim
+label: date_dimension
 connection_id: warehouse
 table: date_dim
 
