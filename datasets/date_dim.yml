@@ -1,7 +1,7 @@
 unique_name: date_dimension
 object_type: dataset
 label: date_dimension
-connection_id: warehouse
+connection_id: wh
 table: date_dim
 
 columns:
