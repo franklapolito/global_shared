@@ -26,7 +26,7 @@ hierarchies:
           - unique_name: d_month_of_year
             label: Month of Year
             folder: Date Attributes
-            dataset: date_dim
+            dataset: date_dimension
             name_column: D_MOY
             key_columns:
               - D_MOY
@@ -35,7 +35,7 @@ hierarchies:
           - unique_name: d_month_sequence
             label: Month Sequence
             folder: Date Attributes
-            dataset: date_dim
+            dataset: date_dimension
             name_column: D_MONTH_SEQ
             key_columns:
               - D_MONTH_SEQ
@@ -48,7 +48,7 @@ level_attributes:
 
   - unique_name: Calendar Month
     label: Calendar Month
-    dataset: date_dim
+    dataset: date_dimension
     name_column: YEAR_MONTH
     key_columns:
       - D_QUARTER_NAME
@@ -56,7 +56,7 @@ level_attributes:
 
   - unique_name: Calendar Quarter
     label: Calendar Quarter
-    dataset: date_dim
+    dataset: date_dimension
     name_column: D_QUARTER_NAME
     key_columns:
       - D_QUARTER_NAME
@@ -64,7 +64,7 @@ level_attributes:
 
   - unique_name: Calendar Year
     label: Calendar Year
-    dataset: date_dim
+    dataset: date_dimension
     name_column: D_YEAR
     key_columns:
       - D_YEAR
@@ -73,7 +73,7 @@ level_attributes:
   - unique_name: Time Dimension
     label: Date
     is_unique_key: true
-    dataset: date_dim
+    dataset: date_dimension
     name_column: D_DATE
     key_columns:
       - D_DATE_SK
