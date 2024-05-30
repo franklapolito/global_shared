@@ -13,13 +13,10 @@ hierarchies:
     levels:
 
       - unique_name: Calendar Year
-        time_unit: year
 
       - unique_name: Calendar Quarter
-        time_unit: quarter
 
       - unique_name: Calendar Month
-        time_unit: month
 
         secondary_attributes:
 
@@ -42,7 +39,6 @@ hierarchies:
             sort_column: D_MONTH_SEQ
 
       - unique_name: Time Dimension
-        time_unit: day
 
 level_attributes:
 
@@ -50,6 +46,7 @@ level_attributes:
     label: Calendar Month
     dataset: date_dimension
     name_column: YEAR_MONTH
+    time_unit: month
     key_columns:
       - D_QUARTER_NAME
       - YEAR_MONTH
@@ -58,6 +55,7 @@ level_attributes:
     label: Calendar Quarter
     dataset: date_dimension
     name_column: D_QUARTER_NAME
+    time_unit: quarter
     key_columns:
       - D_QUARTER_NAME
     sort_column: D_QOY
@@ -66,6 +64,7 @@ level_attributes:
     label: Calendar Year
     dataset: date_dimension
     name_column: D_YEAR
+    time_unit: year
     key_columns:
       - D_YEAR
     sort_column: D_YEAR
@@ -75,6 +74,7 @@ level_attributes:
     is_unique_key: true
     dataset: date_dimension
     name_column: D_DATE
+    time_unit: day
     key_columns:
       - D_DATE_SK
 
