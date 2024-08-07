@@ -1,6 +1,6 @@
 unique_name: Date Dimension
 object_type: dimension
-label: Date Dimension - DG
+label: Date Dimension
 type: time
 
 hierarchies:
