@@ -1,4 +1,4 @@
-unique_name: Date Dimension
+unique_name: Date Dimension DG
 object_type: dimension
 label: Date Dimension
 description: "Date Dimension that includes Gregorian, ISO8601 and Retail 445 calendars"
@@ -217,7 +217,6 @@ calculation_groups:
     name: My Calc Group
     description: My Calc Group
     label: My Calc Group
-    description: This calc group is used for testing only
     folder: Date Attributes
 
     calculated_members:
