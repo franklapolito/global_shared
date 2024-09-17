@@ -214,6 +214,8 @@ level_attributes:
 calculation_groups:
 
   - unique_name: My Calc Group
+    name: My Calc Group
+    description: My Calc Group
     label: My Calc Group
     description: This calc group is used for testing only
     folder: Date Attributes
@@ -221,13 +223,15 @@ calculation_groups:
     calculated_members:
 
       - unique_name: My calc
+        name: My calc
+        description: My Calc
         expression: "[Date Dimension].[Date Month Hierarchy].[YearMonth] + 10"
         format: percent
         template: Custom
 
       - unique_name: Current
-        description: The measure's value for the current dimension members in the
-          query.
+        name: Current
+        description: The measure's value for the current dimension members in the query.
         expression: "([Date Dimension].[Date Week Hierarchy].CurrentMember, [Measures].currentMember)"
         format: standard
         hierarchy: Date Week Hierarchy
@@ -235,6 +239,8 @@ calculation_groups:
         is_default: true
 
       - unique_name: YTD
+        name: YTD
+        description: YTD
         expression: "Aggregate(PeriodsToDate([Date Dimension].[Date Week Hierarchy].[YearWeek],\
           \ [Date Dimension].[Date Week Hierarchy].CurrentMember),[Measures].currentMember)"
         format: standard
