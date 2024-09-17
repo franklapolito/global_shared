@@ -1,0 +1,248 @@
+unique_name: Date Dimension
+object_type: dimension
+label: Date Dimension
+description: "Date Dimension that includes Gregorian, ISO8601 and Retail 445 calendars"
+type: time
+
+hierarchies:
+
+  - unique_name: Date Month Hierarchy
+    label: Date Month Hierarchy
+    description: "A Gregorian Date Hierarchy.  Organizes time by Year, Quarter, Month,\
+      \ Day."
+    filter_empty: "yes"
+    folder: Date Attributes
+
+    levels:
+
+      - unique_name: YearMonth
+
+      - unique_name: Quarter
+
+        secondary_attributes:
+
+          - unique_name: d_quarter_number
+            label: Quarter Number
+            folder: Date Attributes
+            dataset: DateCustom
+            key_columns:
+              - quarter_of_year
+            name_column: quarter_of_year
+            sort_column: quarter_of_year
+
+      - unique_name: Month1
+        parallel_periods:
+          - level: YearMonth
+            key_columns:
+              - name: year_name
+                data_type: string
+
+        secondary_attributes:
+
+          - unique_name: d_month_of_year
+            label: Month Of Year
+            folder: Date Attributes
+            dataset: DateCustom
+            key_columns:
+              - month_of_year
+            name_column: month_of_year
+            sort_column: month_of_year
+
+      - unique_name: DayMonth
+
+        secondary_attributes:
+
+          - unique_name: d_day_of_month
+            label: Day Of Month
+            folder: Date Attributes
+            associated_hierarchy: Date Month Hierarchy
+            dataset: DateCustom
+            key_columns:
+              - day_of_month
+            name_column: day_of_month
+            sort_column: day_of_month
+
+          - unique_name: d_day_of_week_name
+            label: Day Of Week Name
+            folder: Date Attributes
+            associated_hierarchy: Date Month Hierarchy
+            dataset: DateCustom
+            key_columns:
+              - day_of_week_name
+            name_column: day_of_week_name
+            sort_column: day_of_week_name
+
+          - unique_name: d_day_of_week_number
+            label: Day Of Week Number
+            folder: Date Attributes
+            associated_hierarchy: Date Month Hierarchy
+            dataset: DateCustom
+            key_columns:
+              - day_of_week
+            name_column: day_of_week
+            sort_column: day_of_week
+
+          - unique_name: Day_Date
+            label: Day Date
+            folder: Date Attributes
+            associated_hierarchy: Date Month Hierarchy
+            dataset: DateCustom
+            key_columns:
+              - pk_date
+            name_column: pk_date
+            sort_column: pk_date
+
+          - unique_name: W_Day_Date
+            label: W Day Date
+            folder: Date Attributes
+            associated_hierarchy: Date Week Hierarchy
+            dataset: DateCustom
+            key_columns:
+              - pk_date
+            name_column: pk_date
+            sort_column: pk_date
+
+          - unique_name: w_day_of_week_name
+            label: W Day Of Week Name
+            folder: Date Attributes
+            associated_hierarchy: Date Week Hierarchy
+            dataset: DateCustom
+            key_columns:
+              - day_of_week_name
+            name_column: day_of_week_name
+            sort_column: day_of_week_name
+
+          - unique_name: w_day_of_week_number
+            label: W Day Of Week Number
+            folder: Date Attributes
+            associated_hierarchy: Date Week Hierarchy
+            dataset: DateCustom
+            key_columns:
+              - day_of_week
+            name_column: day_of_week
+            sort_column: day_of_week
+
+  - unique_name: Date Week Hierarchy
+    label: Date Week Hierarchy
+    filter_empty: "yes"
+    folder: Date Attributes
+
+    levels:
+
+      - unique_name: YearWeek
+
+      - unique_name: Week
+
+        secondary_attributes:
+
+          - unique_name: d_week_of_year
+            label: Week Of Year
+            folder: Date Attributes
+            dataset: DateCustom
+            key_columns:
+              - week_of_year
+            name_column: week_of_year
+            sort_column: week_of_year
+
+      - unique_name: DayMonth
+
+level_attributes:
+
+  - unique_name: DayMonth
+    label: Day
+    description: Day level of standard calendar Month Hierarchy
+    is_unique_key: true
+    dataset: DateCustom
+    key_columns:
+      - datekey
+    name_column: date_name
+    sort_column: datekey
+    allowed_calcs_for_dma:
+      - Ancestor
+      - Descendants
+      - ParallelPeriod
+      - PeriodsToDate
+      - Siblings
+    time_unit: day
+
+  - unique_name: Month1
+    label: Month
+    dataset: DateCustom
+    key_columns:
+      - month
+    name_column: month_name
+    sort_column: month
+    time_unit: month
+
+  - unique_name: Quarter
+    label: Quarter
+    dataset: DateCustom
+    key_columns:
+      - quarter
+    name_column: quarter_name
+    sort_column: quarter
+    time_unit: quarter
+
+  - unique_name: Week
+    label: Week
+    dataset: DateCustom
+    key_columns:
+      - week
+    name_column: week_name
+    sort_column: week
+    time_unit: week
+
+  - unique_name: YearMonth
+    label: Year
+    description: Year level of the Standard Calendar Month Hierarchy.
+    dataset: DateCustom
+    key_columns:
+      - year
+    name_column: year_name
+    sort_column: year
+    time_unit: year
+
+  - unique_name: YearWeek
+    label: Year
+    dataset: DateCustom
+    key_columns:
+      - year
+    name_column: year_name
+    sort_column: year
+    time_unit: year
+
+calculation_groups:
+
+  - unique_name: My Calc Group
+    label: My Calc Group
+    description: This calc group is used for testing only
+    folder: Date Attributes
+
+    calculated_members:
+
+      - unique_name: My calc
+        expression: "[Date Dimension].[Date Month Hierarchy].[YearMonth] + 10"
+        format: percent
+        template: Custom
+
+      - unique_name: Current
+        description: The measure's value for the current dimension members in the
+          query.
+        expression: "([Date Dimension].[Date Week Hierarchy].CurrentMember, [Measures].currentMember)"
+        format: standard
+        hierarchy: Date Week Hierarchy
+        template: Current
+        is_default: true
+
+      - unique_name: YTD
+        expression: "Aggregate(PeriodsToDate([Date Dimension].[Date Week Hierarchy].[YearWeek],\
+          \ [Date Dimension].[Date Week Hierarchy].CurrentMember),[Measures].currentMember)"
+        format: standard
+        use_input_measure_format: true
+        hierarchy: Date Week Hierarchy
+        template: Year to Date
+        default_aggregation: avg
+
+modeler_metadata:
+  version: "0"
+  modified: "false"
