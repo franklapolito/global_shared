@@ -1,4 +1,4 @@
-unique_name: Date Dimension DG
+unique_name: Date Dimension
 object_type: dimension
 label: Date Dimension
 description: "Date Dimension that includes Gregorian, ISO8601 and Retail 445 calendars"
